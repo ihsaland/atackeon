@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Medieval Math Battles</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <canvas id="renderCanvas"></canvas>
+    <div id="gameUI" class="hidden">
+        <div id="playerStats">
+            <div id="playerHealth"></div>
+            <div id="playerLevel"></div>
+        </div>
+        <div id="enemyStats">
+            <div id="enemyHealth"></div>
+            <div id="enemyLevel"></div>
+        </div>
+        <div id="problemContainer">
+            <div id="problemText"></div>
+            <input type="text" id="answerInput" placeholder="Enter your answer...">
+            <button id="submitAnswer">Submit</button>
+        </div>
+    </div>
+    <div id="loadingScreen">
+        <div class="loading-content">
+            <h1>Medieval Math Battles</h1>
+            <div class="loading-bar">
+                <div class="loading-progress"></div>
+            </div>
+        </div>
+    </div>
+    <script type="module" src="src/main.js"></script>
+</body>
+</html> 

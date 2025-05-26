@@ -1,0 +1,20 @@
+{
+  "name": "medieval-math-battles",
+  "version": "1.0.0",
+  "description": "A medieval-themed educational game with problem-solving battles",
+  "main": "index.js",
+  "scripts": {
+    "start": "vite",
+    "build": "vite build"
+  },
+  "dependencies": {
+    "@babylonjs/core": "^6.47.0",
+    "@babylonjs/gui": "^6.47.0",
+    "@babylonjs/loaders": "^6.47.0",
+    "@babylonjs/materials": "^6.47.0",
+    "howler": "^2.2.4"
+  },
+  "devDependencies": {
+    "vite": "^5.0.0"
+  }
+} 
