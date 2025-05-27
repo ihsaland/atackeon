@@ -4,10 +4,13 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Medieval Math Battles</title>
+    <link rel="icon" type="image/x-icon" href="assets/favicon.ico">
     <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=MedievalSharp&display=swap" rel="stylesheet">
 </head>
 <body>
     <canvas id="renderCanvas"></canvas>
+    <div id="enemyName">Novice Scholar</div>
     <div id="gameUI" class="hidden">
         <div id="playerStats">
             <div id="playerHealth"></div>
@@ -16,6 +19,12 @@
         <div id="enemyStats">
             <div id="enemyHealth"></div>
             <div id="enemyLevel"></div>
+        </div>
+        <div id="timerContainer">
+            <div id="timer"></div>
+            <div id="timerBarContainer">
+                <div id="timerBar"></div>
+            </div>
         </div>
         <div id="problemContainer">
             <div id="problemText"></div>
