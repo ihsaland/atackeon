@@ -1,0 +1,183 @@
+#enemyName {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    font-size: 24px;
+    color: #fff;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+    font-family: 'MedievalSharp', cursive;
+}
+
+#victoryScreen {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.8);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+}
+
+.victory-content {
+    background: linear-gradient(135deg, #2c3e50, #4a6b8a);
+    padding: 40px;
+    border-radius: 10px;
+    text-align: center;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+    border: 2px solid gold;
+    animation: victoryPulse 2s infinite;
+}
+
+.victory-content h1 {
+    color: #ffd700;
+    font-size: 48px;
+    margin-bottom: 20px;
+    text-shadow: 0 0 10px rgba(255, 215, 0, 0.5);
+    font-family: 'MedievalSharp', cursive;
+}
+
+.victory-content p {
+    color: #fff;
+    font-size: 24px;
+    margin: 10px 0;
+    font-family: 'MedievalSharp', cursive;
+}
+
+.victory-content button {
+    background: linear-gradient(135deg, #ffd700, #ffa500);
+    border: none;
+    padding: 15px 30px;
+    font-size: 20px;
+    color: #000;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-top: 20px;
+    font-family: 'MedievalSharp', cursive;
+    transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.victory-content button:hover {
+    transform: scale(1.05);
+    box-shadow: 0 0 15px rgba(255, 215, 0, 0.5);
+}
+
+@keyframes victoryPulse {
+    0% {
+        box-shadow: 0 0 20px rgba(255, 215, 0, 0.5);
+    }
+    50% {
+        box-shadow: 0 0 40px rgba(255, 215, 0, 0.8);
+    }
+    100% {
+        box-shadow: 0 0 20px rgba(255, 215, 0, 0.5);
+    }
+}
+
+#continueScreen, #gameOverScreen {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.8);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+}
+
+.continue-content, .game-over-content {
+    background: linear-gradient(135deg, #2c3e50, #4a6b8a);
+    padding: 40px;
+    border-radius: 10px;
+    text-align: center;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+    border: 2px solid #ffd700;
+    animation: pulse 2s infinite;
+}
+
+.continue-content h1, .game-over-content h1 {
+    color: #ffd700;
+    font-size: 48px;
+    margin-bottom: 20px;
+    text-shadow: 0 0 10px rgba(255, 215, 0, 0.5);
+    font-family: 'MedievalSharp', cursive;
+}
+
+.continue-content p, .game-over-content p {
+    color: #fff;
+    font-size: 24px;
+    margin: 10px 0;
+    font-family: 'MedievalSharp', cursive;
+}
+
+.continue-timer {
+    font-size: 36px !important;
+    color: #ffd700 !important;
+    margin: 20px 0 !important;
+    text-shadow: 0 0 10px rgba(255, 215, 0, 0.5);
+}
+
+.continue-timer.warning {
+    color: #ff4444 !important;
+    animation: warningPulse 0.5s infinite;
+}
+
+.continue-buttons {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    margin-top: 20px;
+}
+
+.continue-content button, .game-over-content button {
+    background: linear-gradient(135deg, #ffd700, #ffa500);
+    border: none;
+    padding: 15px 30px;
+    font-size: 20px;
+    color: #000;
+    border-radius: 5px;
+    cursor: pointer;
+    font-family: 'MedievalSharp', cursive;
+    transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.continue-content button:hover, .game-over-content button:hover {
+    transform: scale(1.05);
+    box-shadow: 0 0 15px rgba(255, 215, 0, 0.5);
+}
+
+#gameOverButton {
+    background: linear-gradient(135deg, #ff4444, #cc0000) !important;
+}
+
+#gameOverButton:hover {
+    box-shadow: 0 0 15px rgba(255, 68, 68, 0.5) !important;
+}
+
+@keyframes pulse {
+    0% {
+        box-shadow: 0 0 20px rgba(255, 215, 0, 0.5);
+    }
+    50% {
+        box-shadow: 0 0 40px rgba(255, 215, 0, 0.8);
+    }
+    100% {
+        box-shadow: 0 0 20px rgba(255, 215, 0, 0.5);
+    }
+}
+
+@keyframes warningPulse {
+    0% {
+        opacity: 1;
+    }
+    50% {
+        opacity: 0.5;
+    }
+    100% {
+        opacity: 1;
+    }
+} 

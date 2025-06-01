@@ -1,5 +1,6 @@
 import * as BABYLON from '@babylonjs/core';
 import { Howl } from 'howler';
+import { trackLevelStart, trackLevelComplete, trackProblemAttempt, trackGameComplete, trackError } from './analytics.js';
 
 // Level configuration
 const LEVEL_CONFIG = {
@@ -1100,19 +1101,57 @@ document.getElementById('submitAnswer').addEventListener('click', async () => {
     gameState.isAnimating = false;
 });
 
-// Victory screen for defeating the final boss
+// Modify the startLevel function to include analytics
+async function startLevel(level) {
+    try {
+        const enemyName = LEVEL_CONFIG.enemies[level - 1].name;
+        trackLevelStart(level, enemyName);
+        
+        // ... existing level start code ...
+        
+        const problem = ProblemGenerator.generateProblem(level);
+        gameState.currentProblem = problem;
+        updateProblemUI();
+        
+        // Start the timer for this level
+        TimerManager.startTimer(level);
+    } catch (error) {
+        trackError('level_start_error', error.message);
+        console.error('Error starting level:', error);
+    }
+}
+
+// Modify the checkAnswer function to include analytics
+async function checkAnswer() {
+    if (gameState.isAnimating) return;
+    
+    const answerInput = document.getElementById('answerInput');
+    const userAnswer = parseFloat(answerInput.value);
+    
+    if (isNaN(userAnswer)) {
+        alert('Please enter a valid number');
+        return;
+    }
+    
+    const timeSpent = TIMER_CONFIG.baseTime - gameState.timeRemaining;
+    const isCorrect = Math.abs(userAnswer - gameState.currentProblem.answer) < 0.01;
+    
+    trackProblemAttempt(
+        gameState.playerLevel,
+        gameState.currentProblem.type,
+        isCorrect,
+        timeSpent
+    );
+    
+    // ... rest of existing checkAnswer code ...
+}
+
+// Modify the showVictoryScreen function to include analytics
 function showVictoryScreen() {
-    const victoryScreen = document.createElement('div');
-    victoryScreen.id = 'victoryScreen';
-    victoryScreen.innerHTML = `
-        <div class="victory-content">
-            <h1>Victory!</h1>
-            <p>You have defeated Sir Eon!</p>
-            <p>Final Score: ${gameState.score}</p>
-            <button onclick="location.reload()">Play Again</button>
-        </div>
-    `;
-    document.body.appendChild(victoryScreen);
+    const totalTime = TIMER_CONFIG.baseTime * gameState.playerLevel;
+    trackGameComplete(totalTime, gameState.playerLevel);
+    
+    // ... rest of existing showVictoryScreen code ...
 }
 
 // Update UI elements with animations
