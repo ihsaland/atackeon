@@ -926,20 +926,31 @@ class TimerManager {
 const canvas = document.getElementById('renderCanvas');
 const engine = new BABYLON.Engine(canvas, true);
 
-// Create scene with enhanced enemy appearance
+// Add mobile detection
+const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
+
+// Modify the createScene function to handle mobile
 const createScene = () => {
     const scene = new BABYLON.Scene(engine);
     
-    // Camera setup
+    // Camera setup with mobile adjustments
     const camera = new BABYLON.ArcRotateCamera(
         'camera',
         0,
         Math.PI / 3,
-        10,
+        isMobile ? 15 : 10, // Further back on mobile
         BABYLON.Vector3.Zero(),
         scene
     );
     camera.attachControl(canvas, true);
+    
+    // Adjust camera controls for mobile
+    if (isMobile) {
+        camera.lowerRadiusLimit = 12;
+        camera.upperRadiusLimit = 20;
+        camera.wheelPrecision = 50;
+        camera.panningSensibility = 0;
+    }
     
     // Lighting
     const light = new BABYLON.HemisphericLight(
@@ -1151,7 +1162,17 @@ function showVictoryScreen() {
     const totalTime = TIMER_CONFIG.baseTime * gameState.playerLevel;
     trackGameComplete(totalTime, gameState.playerLevel);
     
-    // ... rest of existing showVictoryScreen code ...
+    const victoryScreen = document.createElement('div');
+    victoryScreen.id = 'victoryScreen';
+    victoryScreen.innerHTML = `
+        <div class="victory-content">
+            <h1>Victory!</h1>
+            <p>You have defeated Sir Eon!</p>
+            <p>Final Score: ${gameState.score}</p>
+            <button onclick="location.reload()" style="width: 100%; padding: 12px; margin-top: 20px;">Play Again</button>
+        </div>
+    `;
+    document.body.appendChild(victoryScreen);
 }
 
 // Update UI elements with animations
@@ -1325,4 +1346,30 @@ function continueGame() {
     updateProblemUI();
     TimerManager.startTimer(gameState.enemyLevel);
     gameState.isAnimating = false;
+}
+
+// Add mobile-specific event listeners
+if (isMobile) {
+    // Prevent double-tap zoom
+    document.addEventListener('touchend', (e) => {
+        e.preventDefault();
+    }, { passive: false });
+    
+    // Handle virtual keyboard
+    const answerInput = document.getElementById('answerInput');
+    answerInput.addEventListener('focus', () => {
+        // Scroll to input when focused
+        setTimeout(() => {
+            answerInput.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        }, 300);
+    });
+    
+    // Add touch feedback
+    const submitButton = document.getElementById('submitAnswer');
+    submitButton.addEventListener('touchstart', () => {
+        submitButton.style.transform = 'scale(0.95)';
+    });
+    submitButton.addEventListener('touchend', () => {
+        submitButton.style.transform = 'scale(1)';
+    });
 } 

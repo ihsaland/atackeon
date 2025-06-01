@@ -4,6 +4,7 @@
     margin: 0;
     padding: 0;
     box-sizing: border-box;
+    -webkit-tap-highlight-color: transparent;
 }
 
 body {
@@ -12,6 +13,7 @@ body {
     overflow: hidden;
     font-family: 'MedievalSharp', cursive;
     background-color: #1a1a1a;
+    touch-action: manipulation;
 }
 
 #renderCanvas {
@@ -36,12 +38,13 @@ body {
 
 #playerStats, #enemyStats {
     position: absolute;
-    padding: 20px;
+    padding: 15px;
     background: rgba(0, 0, 0, 0.7);
     border: 2px solid #8B4513;
     border-radius: 10px;
     color: #FFD700;
     transition: transform 0.3s ease, background-color 0.3s ease;
+    font-size: clamp(14px, 4vw, 18px);
 }
 
 #playerStats:hover, #enemyStats:hover {
@@ -50,48 +53,45 @@ body {
 }
 
 #playerStats {
-    top: 20px;
-    left: 20px;
+    top: 10px;
+    left: 10px;
 }
 
 #enemyStats {
-    top: 20px;
-    right: 20px;
+    top: 10px;
+    right: 10px;
 }
 
 #problemContainer {
     position: absolute;
-    bottom: 50px;
+    bottom: 20px;
     left: 50%;
     transform: translateX(-50%);
     background: rgba(0, 0, 0, 0.8);
-    padding: 20px;
+    padding: 15px;
     border: 2px solid #8B4513;
     border-radius: 10px;
     text-align: center;
     color: #FFD700;
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
-}
-
-#problemContainer:hover {
-    transform: translateX(-50%) scale(1.02);
-    box-shadow: 0 0 20px rgba(139, 69, 19, 0.5);
+    width: 90%;
+    max-width: 500px;
 }
 
 #problemText {
-    font-size: 24px;
-    margin-bottom: 20px;
+    font-size: clamp(18px, 5vw, 24px);
+    margin-bottom: 15px;
     transition: opacity 0.3s ease;
 }
 
 #answerInput {
-    padding: 10px;
-    font-size: 18px;
+    width: 100%;
+    padding: 12px;
+    font-size: clamp(16px, 4vw, 18px);
     background: rgba(255, 255, 255, 0.1);
     border: 1px solid #8B4513;
     color: #FFD700;
     border-radius: 5px;
-    margin-right: 10px;
+    margin-bottom: 10px;
     transition: border-color 0.3s ease, box-shadow 0.3s ease;
 }
 
@@ -102,8 +102,9 @@ body {
 }
 
 #submitAnswer {
-    padding: 10px 20px;
-    font-size: 18px;
+    width: 100%;
+    padding: 12px;
+    font-size: clamp(16px, 4vw, 18px);
     background: #8B4513;
     color: #FFD700;
     border: none;
@@ -139,33 +140,22 @@ body {
 .loading-content {
     text-align: center;
     color: #FFD700;
-    animation: pulse 2s infinite;
-}
-
-@keyframes pulse {
-    0% {
-        transform: scale(1);
-    }
-    50% {
-        transform: scale(1.05);
-    }
-    100% {
-        transform: scale(1);
-    }
+    padding: 20px;
+    width: 90%;
+    max-width: 400px;
 }
 
 .loading-content h1 {
-    font-size: 48px;
-    margin-bottom: 30px;
-    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+    font-size: clamp(24px, 8vw, 48px);
+    margin-bottom: 20px;
 }
 
 .loading-bar {
-    width: 300px;
-    height: 20px;
+    width: 100%;
+    height: 15px;
     background: rgba(255, 255, 255, 0.1);
     border: 2px solid #8B4513;
-    border-radius: 10px;
+    border-radius: 8px;
     overflow: hidden;
 }
 
@@ -195,22 +185,22 @@ body {
 
 #timerContainer {
     position: absolute;
-    top: 20px;
+    top: 10px;
     left: 50%;
     transform: translateX(-50%);
     background: rgba(0, 0, 0, 0.7);
-    padding: 15px;
+    padding: 10px;
     border: 2px solid #8B4513;
     border-radius: 10px;
     text-align: center;
     color: #FFD700;
-    min-width: 200px;
+    width: 90%;
+    max-width: 300px;
 }
 
 #timer {
-    font-size: 24px;
-    margin-bottom: 10px;
-    transition: color 0.3s ease;
+    font-size: clamp(18px, 4vw, 24px);
+    margin-bottom: 8px;
 }
 
 #timer.warning {
@@ -220,10 +210,10 @@ body {
 
 #timerBarContainer {
     width: 100%;
-    height: 10px;
+    height: 8px;
     background: rgba(255, 255, 255, 0.1);
     border: 1px solid #8B4513;
-    border-radius: 5px;
+    border-radius: 4px;
     overflow: hidden;
 }
 
@@ -249,4 +239,100 @@ body {
     100% {
         opacity: 1;
     }
+}
+
+/* Mobile-specific styles */
+@media (max-width: 768px) {
+    #playerStats, #enemyStats {
+        padding: 10px;
+    }
+
+    #problemContainer {
+        bottom: 10px;
+        padding: 10px;
+    }
+
+    #answerInput {
+        margin-bottom: 8px;
+    }
+
+    /* Add touch feedback */
+    #submitAnswer:active {
+        transform: scale(0.95);
+        background: #A0522D;
+    }
+
+    /* Prevent zoom on input focus */
+    input[type="text"] {
+        font-size: 16px;
+    }
+}
+
+/* Victory and Game Over screens */
+#victoryScreen, #gameOverScreen, #continueScreen {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.9);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+}
+
+.victory-content, .game-over-content, .continue-content {
+    text-align: center;
+    color: #FFD700;
+    padding: 20px;
+    width: 90%;
+    max-width: 400px;
+}
+
+.victory-content h1, .game-over-content h1, .continue-content h1 {
+    font-size: clamp(24px, 8vw, 48px);
+    margin-bottom: 20px;
+}
+
+.continue-buttons {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-top: 20px;
+}
+
+.continue-buttons button {
+    width: 100%;
+    padding: 12px;
+    font-size: clamp(16px, 4vw, 18px);
+    background: #8B4513;
+    color: #FFD700;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-family: 'MedievalSharp', cursive;
+}
+
+.continue-timer {
+    font-size: clamp(24px, 8vw, 36px);
+    margin: 20px 0;
+}
+
+.continue-timer.warning {
+    color: #ff4444;
+    animation: pulse 1s infinite;
+}
+
+/* Animations */
+@keyframes pulse {
+    0% { opacity: 1; }
+    50% { opacity: 0.5; }
+    100% { opacity: 1; }
+}
+
+@keyframes loading {
+    0% { width: 0%; }
+    50% { width: 100%; }
+    100% { width: 0%; }
 } 
